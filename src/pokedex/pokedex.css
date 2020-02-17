@@ -1,0 +1,44 @@
+.mainDiv {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    max-width: 1200px;
+    margin: 50px 250px;
+}
+
+.pokeList {
+    width: 100%;
+    max-width: 200px;
+    text-align: center;
+    margin-right: 20px;
+    margin-bottom: 50px;
+    border: 2px solid #000000;
+    padding: 10px;
+}
+
+.pokeImage {
+    width: 100%;
+    max-width: 200px;
+    height: 200px;
+    background-color: #F2F2F2;
+}
+
+.pokeName {
+    margin-right: 50px;
+}
+
+.type1 {
+    font-size: 11px;
+    background-color: #9BCC50;
+    padding: 3px 20px;
+    margin-right: 10px;
+    border-radius: 7px;
+}
+
+.type2 {
+    font-size: 11px;
+    background-color: #B97FC9;
+    padding: 3px 20px;
+    margin-right: 10px;
+    border-radius: 7px;
+}
