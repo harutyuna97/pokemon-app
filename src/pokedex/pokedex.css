@@ -27,17 +27,52 @@
     margin-right: 50px;
 }
 
-.type1 {
+
+.water {
+    font-size: 11px;
+    background-color: #4592C4;
+    padding: 3px 20px;
+    margin-right: 10px;
+    border-radius: 7px;
+}
+.bug {
+    font-size: 11px;
+    background-color: #729F3F;
+    padding: 3px 20px;
+    margin-right: 10px;
+    border-radius: 7px;
+}
+.grass {
     font-size: 11px;
     background-color: #9BCC50;
     padding: 3px 20px;
     margin-right: 10px;
     border-radius: 7px;
 }
-
-.type2 {
+.poison {
     font-size: 11px;
     background-color: #B97FC9;
+    padding: 3px 20px;
+    margin-right: 10px;
+    border-radius: 7px;
+}
+.fire {
+    font-size: 11px;
+    background-color: #FD7D24;
+    padding: 3px 20px;
+    margin-right: 10px;
+    border-radius: 7px;
+}
+.flying {
+    font-size: 11px;
+    background-color: rgb(8, 243, 192);
+    padding: 3px 20px;
+    margin-right: 10px;
+    border-radius: 7px;
+}
+.normal {
+    font-size: 11px;
+    background-color: rgb(88, 0, 252);
     padding: 3px 20px;
     margin-right: 10px;
     border-radius: 7px;
