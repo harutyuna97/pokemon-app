@@ -25,6 +25,7 @@
 
 .pokeName {
     margin-right: 50px;
+    text-transform: capitalize;
 }
 
 

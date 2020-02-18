@@ -4,6 +4,7 @@ import axios from 'axios'
 import uuid from 'uuid/v1'
 import { Link } from 'react-router-dom'
 
+
 class Pokedex extends Component {
 
     state = {
@@ -40,7 +41,6 @@ class Pokedex extends Component {
             .then(res => {
                 const data = this.state.data.concat()
                 data.push(res.data)
-                console.log(res.data)
                 this.setState({ data })
             })
         })})
@@ -57,7 +57,6 @@ class Pokedex extends Component {
             .then(res => {
                 const data = this.state.data.concat()
                 data.push(res.data)
-                console.log(res.data)
                 this.setState({ data })
             })
         })})
@@ -90,9 +89,12 @@ class Pokedex extends Component {
             this.setState({data})  
         }
     }
+
     
+    
+
     render() { 
-        const { data } = this.state
+        let { data } = this.state
          const PokeList = data.length ? (
             data.map(pokemon => {
                 let typeStyle = null
@@ -186,8 +188,9 @@ class Pokedex extends Component {
             <div>
                 <div className = 'selectDiv'>
                     <select id="sort" onChange = { this.sort }>
-                        <option className = 'option' value="fromLowCase">Sort by name (from lowercase to uppercase)</option>
-                        <option className = 'option' value="fromUpCase">Sort by name (from uppercase to lowercase)</option>
+                        <option className = 'option'>Sort results by...</option>
+                        <option className = 'option' value="fromUpCase">Sort by name (A-Z)</option>
+                        <option className = 'option' value="fromLowCase">Sort by name (Z-A)</option>
                     </select>
                 </div>
                 <div className = 'mainDiv'>

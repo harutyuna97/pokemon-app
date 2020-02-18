@@ -36,7 +36,7 @@ class Pokemon extends Component {
             </div>
             </div>
         ) : (
-            <p>No data</p>
+            <p className = 'loading'>Loading...</p>
         )
         return ( 
             <div>

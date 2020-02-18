@@ -47,3 +47,12 @@
 .infoText {
     margin-top: 30px;
 }
+
+.loading {
+    width: 100%;
+    max-width: 400px;
+    margin: 200px auto;
+    font-weight: bold;
+    font-size: 50px;
+    color: #61617A;
+}
