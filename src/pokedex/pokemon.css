@@ -1,0 +1,49 @@
+.pokeImg {
+    width: 100%;
+    max-width: 330px;
+    height: 360px;
+    background-color: #F2F2F2;
+}
+
+.pokeDiv {
+    width: 100%;
+    max-width: 1000px;
+    margin: 100px auto;
+    display: flex;
+}
+.pokeName2 {
+    color: #61617A;
+    width: 100%;
+    max-width: 200px;
+    margin: 0px auto;
+    font-weight: bold;
+    font-size: 50px;
+    margin-left: 400px;
+}
+.title {
+    width: 100%;
+    max-width: 1000px;
+    margin: 50px 0 0 140px;
+}
+.backBtn {
+    background: none;
+    font-size: 50px;
+    border: none;
+    color: #30A7D7;
+    cursor: initial;
+}
+.pokeInfo {
+    background-color: #30A7D7;
+    width: 100%;
+    max-width: 500px;
+    margin-left: 100px;
+    border-radius: 8px;
+    height: 200px;
+    text-align: center;
+}
+.infoTitle {
+    color: #fff;
+}
+.infoText {
+    margin-top: 30px;
+}

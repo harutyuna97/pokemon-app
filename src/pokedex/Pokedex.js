@@ -2,31 +2,97 @@ import React, { Component } from 'react';
 import '../pokedex/pokedex.css'
 import axios from 'axios'
 import uuid from 'uuid/v1'
+import { Link } from 'react-router-dom'
 
 class Pokedex extends Component {
 
     state = {
-        next: null,
-        data: []
+        prevUrl: null,
+        data: [],
+        nextUrl: 'https://pokeapi.co/api/v2/pokemon'
     }
 
     componentDidMount() {
-        axios.get('https://pokeapi.co/api/v2/pokemon')
-        .then(resp => resp.data.results.map(result => {
+        axios.get(this.state.nextUrl)
+        .then(resp => {
+            this.setState({nextUrl: resp.data.next})
+            this.setState({prevUrl: resp.data.previous})
+            resp.data.results.map(result => {
             axios.get(result.url)
             .then(res => {
                 const data = this.state.data.concat()
                 data.push(res.data)
                 this.setState({ data })
             })
-        }))
+        })})
     }
 
+    
+
+    next = () => {
+        this.setState({ data: [] })
+        axios.get(this.state.nextUrl)
+        .then(resp => {
+            this.setState({nextUrl: resp.data.next})
+            this.setState({prevUrl: resp.data.previous})
+            resp.data.results.map(result => {
+            axios.get(result.url)
+            .then(res => {
+                const data = this.state.data.concat()
+                data.push(res.data)
+                console.log(res.data)
+                this.setState({ data })
+            })
+        })})
+    }
+
+    prev = () => {
+        this.setState({ data: [] })
+        axios.get(this.state.prevUrl)
+        .then(resp => {
+            this.setState({nextUrl: resp.data.next})
+            this.setState({prevUrl: resp.data.previous})
+            resp.data.results.map(result => {
+            axios.get(result.url)
+            .then(res => {
+                const data = this.state.data.concat()
+                data.push(res.data)
+                console.log(res.data)
+                this.setState({ data })
+            })
+        })})
+    }
         
+    sort = (e) => {
+        if (e.target.value === 'fromUpCase') {
+            const data = this.state.data.concat()
+            data.sort(function (a, b) {
+                if (a.name > b.name) {
+                  return 1;
+                }
+                if (a.name < b.name) {
+                  return -1;
+                }
+                return 0;
+              });
+            this.setState({data})  
+        } else if (e.target.value === 'fromLowCase') {
+            const data = this.state.data.concat()
+            data.sort(function (a, b) {
+                if (a.name < b.name) {
+                  return 1;
+                }
+                if (a.name > b.name) {
+                  return -1;
+                }
+                return 0;
+              });
+            this.setState({data})  
+        }
+    }
     
     render() { 
         const { data } = this.state
-        console.log(this.state.data)
          const PokeList = data.length ? (
             data.map(pokemon => {
                 let typeStyle = null
@@ -51,6 +117,15 @@ class Pokedex extends Component {
                         break 
                     case 'normal':
                         typeStyle = 'normal' 
+                        break 
+                    case 'electric':
+                        typeStyle = 'electric' 
+                        break 
+                    case 'fairy':
+                        typeStyle = 'fairy' 
+                        break 
+                    case 'ground':
+                        typeStyle = 'ground' 
                         break 
                     default:
                         typeStyle = null              
@@ -80,12 +155,23 @@ class Pokedex extends Component {
                     case 'normal':
                         typeStyle2 = 'normal' 
                         break 
+                    case 'electric':
+                        typeStyle2 = 'electric' 
+                        break 
+                    case 'fairy':
+                        typeStyle2 = 'fairy' 
+                        break 
+                    case 'ground':
+                        typeStyle2 = 'ground' 
+                        break 
                     default:
                         typeStyle2 = null              
                 }
                 return (
                     <div key = {uuid()} className = 'pokeList'>
-                        <img className = 'pokeImage' src = {pokemon.sprites.front_default} alt = 'pok'/>
+                        <Link to = { '/' + pokemon.name }>
+                            <img className = 'pokeImage' src = {pokemon.sprites.front_default} alt = 'pok'/>
+                        </Link>
                         <h3 className = 'pokeName'>{pokemon.name}</h3>
                         <span className = {typeStyle}>{pokemon.types[0].type.name}</span>
                         {pokemon.types[1] ? (<span className = {typeStyle2}>{ pokemon.types[1].type.name } </span>) : null }
@@ -95,9 +181,22 @@ class Pokedex extends Component {
         ) : (
             <div>No data</div>
         )
+
         return (
-            <div className = 'mainDiv'>
-                { PokeList }
+            <div>
+                <div className = 'selectDiv'>
+                    <select id="sort" onChange = { this.sort }>
+                        <option className = 'option' value="fromLowCase">Sort by name (from lowercase to uppercase)</option>
+                        <option className = 'option' value="fromUpCase">Sort by name (from uppercase to lowercase)</option>
+                    </select>
+                </div>
+                <div className = 'mainDiv'>
+                    { PokeList }
+                </div>
+                <div className = 'btnDiv'>
+                    { this.state.prevUrl ? (<button className = 'prvBtn' onClick = { this.prev }><i className = "fas fa-arrow-left"></i></button>) : null }
+                    { this.state.nextUrl ? (<button className = 'nxtBtn' onClick = { this.next }><i className = "fas fa-arrow-right"></i></button>) : null }
+                </div>
             </div>
         )
         

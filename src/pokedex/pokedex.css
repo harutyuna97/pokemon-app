@@ -77,3 +77,64 @@
     margin-right: 10px;
     border-radius: 7px;
 }
+.electric {
+    font-size: 11px;
+    background-color: #EED535;
+    padding: 3px 20px;
+    margin-right: 10px;
+    border-radius: 7px;
+}
+.fairy {
+    font-size: 11px;
+    background-color: #FDB9E9;
+    padding: 3px 20px;
+    margin-right: 10px;
+    border-radius: 7px;
+}
+.ground {
+    font-size: 11px;
+    background-color: #A38C21;
+    padding: 3px 20px;
+    margin-right: 10px;
+    border-radius: 7px;
+}
+
+
+.btnDiv {
+    width: 100%;
+    max-width: 300px;
+    margin: 50px 580px;
+    text-align: center;
+}
+
+.nxtBtn {
+    background: none;
+    padding: 15px 35px;
+    border: none;
+    color: #313131;
+    font-size: 25px;
+    font-weight: bold;
+}
+.prvBtn {
+    background: none;
+    padding: 15px 35px;
+    border: none;
+    color: #313131;
+    font-size: 25px;
+    font-weight: bold;
+}
+
+#sort {
+    padding: 10px;
+    background: none;
+    background-color: #313131;
+    color: #fff;
+    border-radius: 7px;
+    margin: 50px 0 20px 1000px;
+}
+.option {
+    background-color: #616161;
+}
+.option:hover {
+    box-shadow: 0 0 10px 100px #313131 inset
+}
