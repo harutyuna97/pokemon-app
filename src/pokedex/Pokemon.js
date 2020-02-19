@@ -36,7 +36,7 @@ class Pokemon extends Component {
             </div>
             </div>
         ) : (
-            <p className = 'loading'>Loading...</p>
+            <img className='loadImg' src='https://mir-s3-cdn-cf.behance.net/project_modules/disp/3f3a3831234507.564a1d2338123.gif' alt = 'loading' />
         )
         return ( 
             <div>

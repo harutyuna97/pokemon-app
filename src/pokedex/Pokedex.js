@@ -181,7 +181,7 @@ class Pokedex extends Component {
                 )
             })
         ) : (
-            <div>No data</div>
+            <img className='loadImg2' src='https://mir-s3-cdn-cf.behance.net/project_modules/disp/3f3a3831234507.564a1d2338123.gif' alt = 'loading' />
         )
 
         return (
