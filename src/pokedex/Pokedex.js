@@ -3,63 +3,25 @@ import '../pokedex/pokedex.css'
 import axios from 'axios'
 import uuid from 'uuid/v1'
 import { Link } from 'react-router-dom'
+import { connect } from 'react-redux'
+import { getPokemons, next, prev } from '../actions/pokedexActions';
 
 
 class Pokedex extends Component {
 
-    state = {
-        prevUrl: null,
-        data: [],
-        nextUrl: 'https://pokeapi.co/api/v2/pokemon'
-    }
 
     componentDidMount() {
-        axios.get(this.state.nextUrl)
-        .then(resp => {
-            this.setState({nextUrl: resp.data.next})
-            this.setState({prevUrl: resp.data.previous})
-            resp.data.results.map(result => {
-            axios.get(result.url)
-            .then(res => {
-                const data = this.state.data.concat()
-                data.push(res.data)
-                this.setState({ data })
-            })
-        })})
+        this.props.getPokemons(this.props.nextUrl)
     }
 
     
 
     next = () => {
-        this.setState({ data: [] })
-        axios.get(this.state.nextUrl)
-        .then(resp => {
-            this.setState({nextUrl: resp.data.next})
-            this.setState({prevUrl: resp.data.previous})
-            resp.data.results.map(result => {
-            axios.get(result.url)
-            .then(res => {
-                const data = this.state.data.concat()
-                data.push(res.data)
-                this.setState({ data })
-            })
-        })})
+        this.props.next(this.props.nextUrl)
     }
 
     prev = () => {
-        this.setState({ data: [] })
-        axios.get(this.state.prevUrl)
-        .then(resp => {
-            this.setState({nextUrl: resp.data.next})
-            this.setState({prevUrl: resp.data.previous})
-            resp.data.results.map(result => {
-            axios.get(result.url)
-            .then(res => {
-                const data = this.state.data.concat()
-                data.push(res.data)
-                this.setState({ data })
-            })
-        })})
+        this.props.prev(this.props.prevUrl)
     }
         
     sort = (e) => {
@@ -94,7 +56,7 @@ class Pokedex extends Component {
     
 
     render() { 
-        let { data } = this.state
+        let { data } = this.props
          const PokeList = data.length ? (
             data.map(pokemon => {
                 let typeStyle = null
@@ -197,13 +159,29 @@ class Pokedex extends Component {
                     { PokeList }
                 </div>
                 <div className = 'btnDiv'>
-                    { this.state.prevUrl ? (<button className = 'prvBtn' onClick = { this.prev }><i className = "fas fa-arrow-left"></i></button>) : null }
-                    { this.state.nextUrl ? (<button className = 'nxtBtn' onClick = { this.next }><i className = "fas fa-arrow-right"></i></button>) : null }
+                    { this.props.prevUrl ? (<button className = 'prvBtn' onClick = { this.prev }><i className = "fas fa-arrow-left"></i></button>) : null }
+                    { this.props.nextUrl ? (<button className = 'nxtBtn' onClick = { this.next }><i className = "fas fa-arrow-right"></i></button>) : null }
                 </div>
             </div>
         )
         
     }
 }
+
+const mapStateToProps = (state) => {
+    return {
+        data: state.pokedex.data,
+        prevUrl: state.pokedex.prevUrl,
+        nextUrl: state.pokedex.nextUrl,
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        getPokemons: nextUrl => dispatch(getPokemons(nextUrl)),
+        next: nextUrl => dispatch(next(nextUrl)),
+        prev: prevUrl => dispatch(prev(prevUrl)),
+    }
+}
  
-export default Pokedex;
+export default connect(mapStateToProps, mapDispatchToProps)(Pokedex);
