@@ -1,37 +1,31 @@
 import React, { Component } from 'react';
-import axios from 'axios'
 import './pokemon.css'
 import { Link } from 'react-router-dom'
+import { connect } from 'react-redux'
+import { getPokemonData } from '../actions/pokemonActions';
+
 
 class Pokemon extends Component {
-    state = {
-        pokemon: null,
-        data: null
-    }
+    
     componentDidMount() {
-        let pokemon = this.props.match.params.poke_name
-        this.setState({ pokemon })
-        axios.get('https://pokeapi.co/api/v2/pokemon/' + pokemon)
-        .then(resp => {
-            this.setState({ data: resp.data })
-        })
+        this.props.getPokemonData(this.props.match.params.poke_name)
     }
 
     
 
     render() { 
-        let pokemon = this.state.data ? (
+        let pokemon = this.props.data ? (
             <div>
                 <div className = 'title'>
                     <Link to = '/' className = 'backBtn'><i className = "fas fa-arrow-left"></i></Link>
-                    <span className = 'pokeName2'>{this.state.data.name + ' ' + '№' + this.state.data.id}</span>
+                    <span className = 'pokeName2'>{this.props.data.name + ' ' + '№' + this.props.data.id}</span>
                 </div>
                 <div className = 'pokeDiv'>
-                    <img className = 'pokeImg' src = { this.state.data.sprites.front_default } alt='pokemon'/>
+                    <img className = 'pokeImg' src = { this.props.data.sprites.front_default } alt='pokemon'/>
                     <div className = 'pokeInfo'>
-                        <p className = 'infoText'><span className = 'infoTitle'>Height:</span> { this.state.data.height }</p>
-                        <p className = 'infoText'><span className = 'infoTitle'>Weight:</span> { this.state.data.weight }</p>
-                        <p className = 'infoText'><span className = 'infoTitle'>Types:</span> {this.state.data.types[0].type.name}  {this.state.data.types[1] ? ',' + ' ' + this.state.data.types[1].type.name : null} </p>
+                        <p className = 'infoText'><span className = 'infoTitle'>Height:</span> { this.props.data.height }</p>
+                        <p className = 'infoText'><span className = 'infoTitle'>Weight:</span> { this.props.data.weight }</p>
+                        <p className = 'infoText'><span className = 'infoTitle'>Types:</span> {this.props.data.types[0].type.name}  {this.props.data.types[1] ? ',' + ' ' + this.props.data.types[1].type.name : null} </p>
                     </div>
             </div>
             </div>
@@ -45,5 +39,17 @@ class Pokemon extends Component {
          );
     }
 }
+
+const mapStateToProps = (state) => {
+    return {
+        data: state.pokemon.data,
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        getPokemonData: pokemon => dispatch(getPokemonData(pokemon))
+    }
+}
  
-export default Pokemon;
+export default connect(mapStateToProps, mapDispatchToProps)(Pokemon);

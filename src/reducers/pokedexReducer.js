@@ -1,4 +1,5 @@
 const initState = {
+    url: 'https://pokeapi.co/api/v2/pokemon',
     prevUrl: null,
     data: [],
     nextUrl: 'https://pokeapi.co/api/v2/pokemon'
@@ -36,6 +37,36 @@ const pokedexReducer = (state = initState, action) => {
                 ...state,
                 prevUrl: action.resp.data.previous
             }    
+        case 'SORT_FROM_UP':
+            let newData3 = state.data.concat()
+            newData3.sort(function (a, b) {
+            if (a.name > b.name) {
+              return 1;
+            }
+            if (a.name < b.name) {
+              return -1;
+            }
+            return 0;
+            });
+            return {
+                ...state,
+                data: newData3
+            }
+        case 'SORT_FROM_DOWN':
+            let newData4 = state.data.concat()
+            newData4.sort(function (a, b) {
+            if (a.name < b.name) {
+              return 1;
+            }
+            if (a.name > b.name) {
+              return -1;
+            }
+            return 0;
+            });
+            return {
+                ...state,
+                data: newData4
+            }
         default: 
             return state    
     }

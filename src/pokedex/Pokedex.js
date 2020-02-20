@@ -9,13 +9,12 @@ import { getPokemons, next, prev } from '../actions/pokedexActions';
 
 class Pokedex extends Component {
 
-
     componentDidMount() {
-        this.props.getPokemons(this.props.nextUrl)
+        this.props.dataNull()
+        this.props.getPokemons(this.props.url)
     }
 
     
-
     next = () => {
         this.props.next(this.props.nextUrl)
     }
@@ -26,29 +25,9 @@ class Pokedex extends Component {
         
     sort = (e) => {
         if (e.target.value === 'fromUpCase') {
-            const data = this.state.data.concat()
-            data.sort(function (a, b) {
-                if (a.name > b.name) {
-                  return 1;
-                }
-                if (a.name < b.name) {
-                  return -1;
-                }
-                return 0;
-              });
-            this.setState({data})  
+            this.props.sortFromUp(e)
         } else if (e.target.value === 'fromLowCase') {
-            const data = this.state.data.concat()
-            data.sort(function (a, b) {
-                if (a.name < b.name) {
-                  return 1;
-                }
-                if (a.name > b.name) {
-                  return -1;
-                }
-                return 0;
-              });
-            this.setState({data})  
+           this.props.sortFromDown(e)
         }
     }
 
@@ -173,14 +152,18 @@ const mapStateToProps = (state) => {
         data: state.pokedex.data,
         prevUrl: state.pokedex.prevUrl,
         nextUrl: state.pokedex.nextUrl,
+        url: state.pokedex.url,
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        getPokemons: nextUrl => dispatch(getPokemons(nextUrl)),
+        dataNull: () => dispatch({type: 'DATA_NULL'}),
+        getPokemons: url => dispatch(getPokemons(url)),
         next: nextUrl => dispatch(next(nextUrl)),
         prev: prevUrl => dispatch(prev(prevUrl)),
+        sortFromUp: e => dispatch({type: 'SORT_FROM_UP', e}),
+        sortFromDown: e => dispatch({type: 'SORT_FROM_DOWN', e})
     }
 }
  
