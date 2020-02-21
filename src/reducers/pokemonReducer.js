@@ -10,8 +10,9 @@ const pokemonReducer = (state = initState, action) => {
                 ...state,
                 data: action.data
             }
+        default:
+            return state    
     }
-    return state
 }
 
 export default pokemonReducer

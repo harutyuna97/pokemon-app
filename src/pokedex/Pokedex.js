@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import '../pokedex/pokedex.css'
-import axios from 'axios'
 import uuid from 'uuid/v1'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
